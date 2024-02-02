@@ -36,11 +36,12 @@ const isValidDomain = require('is-valid-domain')
  *   .then(files => console.log(files))
  *   .catch(error => console.error(error));
  */
-exports.communicatingFilesExample = async function communicatingFilesExample (domain) {
+exports.communicatingFilesExample = async function communicatingFilesExample(domain) {
   if (!domain || !isValidDomain(domain)) throw new Error('Undefined domain')
 
   let response = {}
   try {
+
     response = await axios({
       url: 'https://www.virustotal.com/api/v3/domains/' + domain + '/communicating_files',
       method: 'get',
@@ -50,13 +51,15 @@ exports.communicatingFilesExample = async function communicatingFilesExample (do
       }
     })
   } catch (error) {
+    console.log("hello")
     if (error?.response?.data) {
       throw new Error(error.response.data.error + ' ' + error.response.data.message)
     } else {
+      console.log("hello2")
       throw new Error('Internal Server Error')
     }
   }
-
+  console.log("hello3")
   const commFiles = []
   for (const finding of response.data.data) {
     commFiles.push({
@@ -68,6 +71,6 @@ exports.communicatingFilesExample = async function communicatingFilesExample (do
       scanned: finding.attributes?.first_submission_date ? dayjs.unix(finding.attributes.first_submission_date) : null
     })
   }
-
+  console.log("hello4")
   return commFiles
 }

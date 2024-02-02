@@ -34,8 +34,6 @@ router.get('/doOperation/:operationCode', passport.authenticate('headerapikey', 
 // Example function
 const exampleController = require('../controllers/example')
 
-router.get('/communicatingFilesExample/:domain', passport.authenticate('headerapikey', {
-  session: false
-}), exampleController.communicatingFilesExample)
+router.get('/communicatingFilesExample/:domain', exampleController.communicatingFilesExample)
 
 module.exports = router
