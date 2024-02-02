@@ -59,7 +59,8 @@ function validateRequestParams (req, res, next) {
   }
 
   // If naicsCode is provided, extract the first two characters
-  req.correctNaicsCode = naicsCode ? naicsCode.substring(0, 2) : undefined
+  req.query.correctNaicsCode = naicsCode ? naicsCode.substring(0, 2) : undefined
+
   next()
 }
 
@@ -83,7 +84,7 @@ exports.getRansomwareStats = async function (req, res) {
   } = req.query
 
   try {
-    const response = await axios.post(`${config.ip_feed}/cyb/getRansomwareStats`, {
+    const response = await axios.post(`${config.ip_manager}/cyb/getRansomwareStats`, {
       countryCode,
       revenue,
       employees,
